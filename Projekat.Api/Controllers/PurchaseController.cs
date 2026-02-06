@@ -21,7 +21,7 @@ public class PurchaseController : ControllerBase
     }
 
     // ============================
-    // BUYER – KREIRANJE PORUDŽBINE djole
+    // BUYER – KREIRANJE PORUDŽBINE
     // ============================
     [Authorize(Roles = "Buyer")]
     [HttpPost]
@@ -57,7 +57,7 @@ public class PurchaseController : ControllerBase
     }
 
     // ============================
-    // 2️⃣ BUYER – MOJE PORUDŽBINE
+    // BUYER – MOJE PORUDŽBINE
     // ============================
     [Authorize(Roles = "Buyer")]
     [HttpGet("my")]
@@ -85,7 +85,7 @@ public class PurchaseController : ControllerBase
     }
 
     // ============================
-    // 3️⃣ OWNER – PORUDŽBINE ZA MOJA VOZILA
+    // OWNER – PORUDŽBINE ZA MOJA VOZILA
     // ============================
     [Authorize(Roles = "Owner")]
     [HttpGet("for-my-vehicles")]
@@ -112,7 +112,7 @@ public class PurchaseController : ControllerBase
     }
 
     // ============================
-    // 4️⃣ ADMIN – SVE PORUDŽBINE
+    // ADMIN – SVE PORUDŽBINE
     // ============================
     [Authorize(Roles = "Admin")]
     [HttpGet]
