@@ -18,14 +18,14 @@ public class UserController : ControllerBase
         _context = context;
     }
 
-    // ✅ TEST – bilo koji ulogovani korisnik
+    // TEST – bilo koji ulogovani korisnik
     [HttpGet("test")]
     public IActionResult Test()
     {
-        return Ok("JWT radi, korisnik je autorizovan ✅");
+        return Ok("JWT radi, korisnik je autorizovan ");
     }
 
-    // 🔐 ADMIN – LISTA SVIH KORISNIKA
+    // ADMIN – LISTA SVIH KORISNIKA
     [Authorize(Roles = "Admin")]
     [HttpGet]
     public IActionResult GetAllUsers()
@@ -44,7 +44,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    // 🔐 ADMIN – BRISANJE KORISNIKA
+    // ADMIN – BRISANJE KORISNIKA
     [Authorize(Roles = "Admin")]
     [HttpDelete("{id}")]
     public IActionResult DeleteUser(int id)
@@ -58,10 +58,6 @@ public class UserController : ControllerBase
 
         if (user.Role == "Admin")
             return BadRequest("Admin ne može biti obrisan");
-
-        // ako ne želite komplikacije – blokirajte brisanje ownera sa oglasima                ///////DODATI KASNIJE KADA SE SVE ZAVRSI, DODATI DA PROVERAVA KOLIKO OGLASA IMA PRODAVAC I PITA PROZORCIC KOJI PITA ADMINA DA LI JE SIGURAN DA LI ZELI DA OBRISE KORISNIKA JER CE OBRISATI I NJEGOVE OGLASE
-        //if (user.Vehicles.Any())                                                            ///////DODATI I SHADOW BAN
-            //return BadRequest("Korisnik ima aktivne oglase");
 
         _context.Users.Remove(user);
         _context.SaveChanges();
