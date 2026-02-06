@@ -21,7 +21,7 @@ public class PurchaseController : ControllerBase
     }
 
     // ============================
-    // 1️⃣ BUYER – KREIRANJE PORUDŽBINE
+    // BUYER – KREIRANJE PORUDŽBINE djole
     // ============================
     [Authorize(Roles = "Buyer")]
     [HttpPost]
