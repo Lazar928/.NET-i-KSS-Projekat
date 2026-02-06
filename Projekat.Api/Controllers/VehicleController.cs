@@ -19,7 +19,7 @@ public class VehicleController : ControllerBase
         _context = context;
     }
 
-    // 🔓 GET ALL – svi
+    // GET ALL – svi
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -41,7 +41,7 @@ public class VehicleController : ControllerBase
         return Ok(vehicles);
     }
 
-    // 🔓 GET BY ID – svi
+    // GET BY ID – svi
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
@@ -63,7 +63,7 @@ public class VehicleController : ControllerBase
         });
     }
 
-    // 🔐 CREATE – samo OWNER
+    // CREATE – samo OWNER
     [Authorize(Roles = "Owner")]
     [HttpPost]
     public IActionResult Create(VehicleCreateDto dto)
@@ -87,7 +87,7 @@ public class VehicleController : ControllerBase
         return Ok("Vozilo dodato");
     }
 
-    // 🔐 UPDATE – samo OWNER (svoje)
+    // UPDATE – samo OWNER (svoje)
     [Authorize(Roles = "Owner")]
     [HttpPut("{id}")]
     public IActionResult Update(int id, VehicleUpdateDto dto)
@@ -112,7 +112,7 @@ public class VehicleController : ControllerBase
         return Ok("Vozilo izmenjeno");
     }
 
-    // 🔐 DELETE – OWNER i ADMIN (Owner samo svoje, Admin sve)
+    //  DELETE – OWNER i ADMIN (Owner samo svoje, Admin sve)
     [Authorize(Roles = "Owner,Admin")]
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
@@ -140,20 +140,4 @@ public class VehicleController : ControllerBase
 
         return Ok("Vozilo obrisano");
     }
-
-    // DELETE da adming moze da brise od svakod Owner-a
-    [Authorize(Roles = "Admin")]
-    [HttpDelete("admin/{id}")]
-    public IActionResult DeleteByAdmin(int id)
-    {
-        var vehicle = _context.Vehicles.FirstOrDefault(v => v.Id == id);
-
-        if (vehicle == null)
-            return NotFound("Vozilo ne postoji");
-
-        _context.Vehicles.Remove(vehicle);
-        _context.SaveChanges();
-
-        return Ok();
-    }   
 }
