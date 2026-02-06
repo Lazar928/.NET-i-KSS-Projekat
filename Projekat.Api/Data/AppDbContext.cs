@@ -18,7 +18,7 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // 👇 CASCADE DELETE:
+        // CASCADE DELETE:
         // kada se obriše Owner (User),
         // automatski se brišu sva njegova vozila
         modelBuilder.Entity<Vehicle>()
