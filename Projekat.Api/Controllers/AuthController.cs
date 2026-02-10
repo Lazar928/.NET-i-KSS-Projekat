@@ -51,10 +51,10 @@ public class AuthController : ControllerBase
         var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
 
         if (user == null)
-            return Unauthorized("Pogrešan email ili lozinka");
+            return Unauthorized(new { message = "Pogrešan email ili lozinka" });
 
         if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-            return Unauthorized("Pogrešan email ili lozinka");
+            return Unauthorized(new { message = "Pogrešan email ili lozinka" });
 
         var token = GenerateJwtToken(user);
 
