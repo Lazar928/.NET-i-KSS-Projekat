@@ -8,3 +8,5 @@ namespace Projekat.Api.DTOs.User
         public string Role { get; set; } = null!;
     }
 }
+
+//Izlazni DTO, sluzi za vracanje informacija o korisniku
