@@ -28,7 +28,7 @@ defineExpose({ showToast })
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #22c55e; /* zelena */
+  background-color: #22c55e; 
   color: white;
   padding: 15px 20px;
   border-radius: 6px;
