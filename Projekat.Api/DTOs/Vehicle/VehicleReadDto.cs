@@ -13,4 +13,4 @@ namespace Projekat.Api.DTOs.Vehicle
     }
 }
 
-//Izlazni DTO, 
+//Izlazni DTO, sluzi za prikaz podataka o vozilu ukljucijuci i podatke o vlasniku
