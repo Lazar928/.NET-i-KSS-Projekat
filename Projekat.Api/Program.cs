@@ -4,10 +4,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Projekat.Api.Data;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args); //Inicijalizacija i ucitavanje servisa
 
 // Add services
-builder.Services.AddControllers();
+builder.Services.AddControllers(); // Dozvoljava rad svih API kontrolera
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -37,9 +37,9 @@ builder.Services.AddSwaggerGen(c =>
             new string[] {}
         }
     });
-});
+});  //Swagger je konfigurisan da podrzava JWT autentikacuju
 
-// DbContext - MySQL
+// DbContext - MySQL (veza sa bazom)
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -59,22 +59,22 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true, //ko je izdao token
+        ValidateAudience = true, //kome je namenjen
+        ValidateLifetime = true, //da li je istekao
+        ValidateIssuerSigningKey = true, //da li je validan
 
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
-        )
+        ) // JWT se validira pomocu definisanog kljuca u konfiguraciji
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(); // Omogucava autorizaciju, tj. bez ovoga role ne bi radile
 
-// CORS (Vue)
+// CORS (Vue), veza sa VUE frontendom, ovo dozvoljava da frontend poziva backend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVue",
@@ -85,6 +85,7 @@ builder.Services.AddCors(options =>
     );
 });
 
+//ovde se gradi aplikacija sa svim servisima 
 var app = builder.Build();
 
 // Middleware
@@ -97,8 +98,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowVue");
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); //PRolazi prvo autentikaciju pa tek onda autorizciju
+app.UseAuthorization(); //Autentikacija proverava ko je u pitanu a autozacija da li ima pravo pristupa
 
-app.MapControllers();
-app.Run();
+app.MapControllers(); //Sluzi za povezivanje ruta
+app.Run(); //pokrece server
