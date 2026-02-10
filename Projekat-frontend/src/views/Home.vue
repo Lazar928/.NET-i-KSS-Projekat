@@ -266,12 +266,12 @@ const updateVehicle = async () => {
       editingVehicle.value
     )
 
-    // 🔥 NAĐI INDEX U LISTI
+    //  NADJI INDEX U LISTI
     const index = vehicles.value.findIndex(
       v => v.id === editingVehicle.value.id
     )
 
-    // 🔥 ZAMENI VOZILO U MEMORIJI
+    //  ZAMENI VOZILO U MEMORIJI
     if (index !== -1) {
       vehicles.value[index] = { ...editingVehicle.value }
     }
@@ -296,7 +296,7 @@ const deleteVehicle = async (id) => {
   try {
     await api.delete(`/vehicles/${id}`)
 
-    // 🔥 ukloni iz memorije (nema refresha)
+    // ukloni iz memorije (nema refresha)
     vehicles.value = vehicles.value.filter(v => v.id !== id)
 
     await loadOwnerPurchases()
@@ -317,7 +317,7 @@ const deleteVehicleAdmin = async (id) => {
   try {
     await api.delete(`/vehicles/${id}`)
 
-    // 🔥 odmah ukloni iz UI
+    //  odmah ukloni iz UI
     vehicles.value = vehicles.value.filter(v => v.id !== id)
 
     toastRef.value.show('Oglas je obrisan (ADMIN) 🛑', 'success')
@@ -330,7 +330,7 @@ const createVehicle = async () => {
   try {
     await api.post('/vehicles', newVehicle.value)
 
-    await loadVehicles() // 🔥 OVO JE KLJUČ
+    await loadVehicles() // await sluzi da frontend saceka da backend load-uje i vrati mu nazad kako bi odma prikazao
 
     showAddForm.value = false
 
@@ -409,147 +409,3 @@ onMounted(() => {
 
 
 </script>
-<!--
-<style scoped>
-.home {
-  max-width: 1100px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.logout {
-  background: #d9534f;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.my-section {
-  margin-top: 40px;
-}
-
-.my-card {
-  border-color: #007bff;
-}
-
-.danger {
-  background: crimson;
-  color: white;
-  border: none;
-}
-.edit-card {
-  margin-top: 30px;
-  padding: 20px;
-  border: 2px solid #4caf50;
-  border-radius: 8px;
-  background: #f9fff9;
-}
-
-.edit-card input,
-.edit-card textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.cancel {
-  background: #ccc;
-}
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.danger {
-  background-color: #dc3545;
-  color: white;
-}
-.admin-users {
-  margin-top: 40px;
-}
-
-.users-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.users-table th,
-.users-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.users-table th {
-  background-color: #f3f4f6;
-}
-
-.danger {
-  background-color: #ef4444;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-/* ZAJEDNIČKA TABELA */
-.table-wrapper {
-  margin-top: 25px;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-}
-
-.table th {
-  text-align: left;
-  background-color: #f3f4f6;
-  padding: 10px;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.table td {
-  padding: 10px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.table tr:hover {
-  background-color: #f9fafb;
-}
-
-/* PRAZNO STANJE */
-.empty {
-  color: #6b7280;
-  font-style: italic;
-  margin-top: 10px;
-}
-</style>
--->
