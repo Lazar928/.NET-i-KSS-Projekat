@@ -19,7 +19,7 @@ const showToast = (msg, duration = 7000) => {
   }, duration)
 }
 
-// ⬇️ omogućava da roditelj pozove showToast
+// omogućava da roditelj pozove showToast
 defineExpose({ showToast })
 </script>
 
