@@ -9,3 +9,5 @@ namespace Projekat.Api.DTOs.Vehicle
         public string Description { get; set; }
     }
 }
+
+//Ulazni DTO, sadrzi podatke za vozilo
