@@ -11,3 +11,5 @@ public class PurchaseReadDto
     public string BuyerEmail { get; set; }
     public DateTime CreatedAt { get; set; }
 }
+
+//Izlazni DTO, sluzi za vracanje podataka o kupovinama i sadrzi informacije koje su potrebne za prikaz 
