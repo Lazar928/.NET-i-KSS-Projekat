@@ -2,7 +2,7 @@ namespace Projekat.Api.Entities;
 
 public class Vehicle
 {
-    public int Id { get; set; }
+    public int Id { get; set; } //pk
     public string Brand { get; set; } = null!;
     public string Model { get; set; } = null!;
     public int Year { get; set; }
