@@ -9,7 +9,7 @@ public class Vehicle
     public decimal Price { get; set; }
     public string Description { get; set; } = null!;
 
-    // 👇 VEZA KA OWNER-U
+    // VEZA KA OWNER-U
     public int OwnerId { get; set; }
     public User Owner { get; set; } = null!;
 }
