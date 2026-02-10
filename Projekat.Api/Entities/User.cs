@@ -4,7 +4,7 @@ namespace Projekat.Api.Entities;
 
 public class User
 {
-    public int Id { get; set; }
+    public int Id { get; set; } //pk
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PasswordHash { get; set; } = null!;
