@@ -19,7 +19,7 @@ const login = async () => {
       password: password.value
     })
 
-    // backend vraća token
+    // backend vraca token
     localStorage.setItem('token', res.data.token)
 
     // opciono: sacuvaj rolu
