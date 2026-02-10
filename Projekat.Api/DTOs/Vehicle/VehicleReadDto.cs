@@ -13,3 +13,4 @@ namespace Projekat.Api.DTOs.Vehicle
     }
 }
 
+//Izlazni DTO, 
