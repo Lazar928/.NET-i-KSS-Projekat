@@ -306,7 +306,7 @@ section h3 {
    FINAL POLISH / UX
 ========================= */
 
-/* kartice – malo “života” */
+/* kartice */
 .card {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
