@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5097/api", // 👈 tvoj backend
+  baseURL: "http://localhost:5097/api", // backend projekta
 });
 
 api.interceptors.request.use((config) => {
