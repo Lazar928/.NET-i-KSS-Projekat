@@ -19,22 +19,20 @@ const login = async () => {
       password: password.value
     })
 
-    // backend vraca token
+    // cuvanje tokena
     localStorage.setItem('token', res.data.token)
-
-    // opciono: sacuvaj rolu
     localStorage.setItem('role', res.data.role)
-
-    // pamti koji user je log in-ovan
     localStorage.setItem('userId', res.data.userId)
-
-    // pamti naziv usera/owner/admina koji je ulogovan
     localStorage.setItem('username', res.data.username)
 
-    // redirekcija posle logina
+    // redirekcija
     router.push('/home')
   } catch (err) {
-    error.value = err.response?.data || 'Greška pri logovanju'
+    if (err.response && err.response.data && err.response.data.message) {
+      error.value = err.response.data.message
+    } else {
+      error.value = 'Greška pri logovanju'
+    }
   }
 }
 </script>
@@ -55,11 +53,17 @@ const login = async () => {
 
       <button @click="login">Prijava</button>
 
+      <!-- PORUKA O GREŠCI -->
+      <p v-if="error" class="error-message">
+        {{ error }}
+      </p>
+
       <p class="register">
         Nemate nalog?
-        <span @click="$router.push('/register')">Registrujte se ovde</span>
+        <span @click="$router.push('/register')">
+          Registrujte se ovde
+        </span>
       </p>
     </div>
   </div>
 </template>
-
