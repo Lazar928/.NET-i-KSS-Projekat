@@ -54,7 +54,7 @@ const error = ref('')
 const router = useRouter()
 
 const register = async () => {
-  error.value = ''
+  error.value = '' // reset greske ako je prethodno postojala, obrisace se
 
   if (!username.value || !email.value || !password.value || !role.value){
     error.value = 'Popunite sva polja'
