@@ -15,7 +15,7 @@ namespace Projekat.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly AppDbContext _context; // Pristup bazi
-    private readonly IConfiguration _config; // Cita appsetings.json (JWT kljuc)
+    private readonly IConfiguration _config; // Cita appsettings.json (JWT kljuc)
 
     public AuthController(AppDbContext context, IConfiguration config)
     {
@@ -27,11 +27,14 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto dto)
     {
+        if (!ModelState.IsValid)
+            return BadRequest("Neispravan email format");
+
         if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
-            return BadRequest("Email already exists"); // PRoverava da li Email vec postoji
+            return BadRequest("Email already exists");
 
         var user = new User
-        {
+        {   
             Username = dto.Username,
             Email = dto.Email,
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
@@ -39,22 +42,24 @@ public class AuthController : ControllerBase
         };
 
         _context.Users.Add(user);
-        await _context.SaveChangesAsync(); // Cuvanje u bazi
+        await _context.SaveChangesAsync();
 
         return Ok("User registered successfully");
     }
+
 
     // ---------------- LOGIN ----------------
     [HttpPost("login")]
     public IActionResult Login(LoginDto dto)
     {
-        var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email); // Trazenje korisnika po emailu, tj da li postoj mail u bazi
+        var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
 
         if (user == null)
             return Unauthorized(new { message = "Pogrešan email ili lozinka" });
 
         if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             return Unauthorized(new { message = "Pogrešan email ili lozinka" });
+
 
         var token = GenerateJwtToken(user);
 
@@ -70,16 +75,15 @@ public class AuthController : ControllerBase
     // ---------------- JWT ----------------
     private string GenerateJwtToken(User user)
     {
-        // Token sadrzi User id, Username i User role
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.Username),
+            new Claim(ClaimTypes.Name, user.Username), // Token sadrzi User id, Username, User role
             new Claim(ClaimTypes.Role, user.Role)
         };
-        
+
         var key = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(_config["Jwt:Key"]) //kljuc iz appsettings.json potpisuje kljuc i ako ga neko promeni on postaje nevazeci
+            Encoding.UTF8.GetBytes(_config["Jwt:Key"]) // Kljuc iz appsettings.json potpisuje token (Ako se promeni vise ne vazi)
         );
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
