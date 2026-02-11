@@ -320,9 +320,9 @@ const deleteVehicleAdmin = async (id) => {
     //  odmah ukloni iz UI
     vehicles.value = vehicles.value.filter(v => v.id !== id)
 
-    toastRef.value.show('Oglas je obrisan (ADMIN) ', 'success')
+    toastRef.value.showToast('Oglas je obrisan')
   } catch (err) {
-    toastRef.value.show('Greška pri brisanju ', 'error')
+    toastRef.value.showToast('Greška pri brisanju')
   }
 }
 
