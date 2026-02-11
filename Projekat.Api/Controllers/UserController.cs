@@ -11,7 +11,7 @@ namespace Projekat.Api.Controllers;
 [Authorize] // svi endpoint-i traže JWT
 public class UserController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext _context; //veza sa bazom
 
     public UserController(AppDbContext context)
     {
