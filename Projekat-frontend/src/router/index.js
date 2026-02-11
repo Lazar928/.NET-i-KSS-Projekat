@@ -29,21 +29,21 @@ const router = createRouter({
 
 // ROUTE GUARD
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token') 
 
-  // Ako je ulogovan i pokusava login ili register onda prebaci na home
+  
   if (token && (to.path === '/login' || to.path === '/register')) {
     next('/home')
     return
   }
 
-  // Ako nije ulogovan i ide na zasticenu rutu onda vrati na login
+  
   if (!token && to.path !== '/login' && to.path !== '/register') {
     next('/login')
     return
   }
 
-  // U svim ostalim slučajevima pusti
+  
   next()
 })
 
