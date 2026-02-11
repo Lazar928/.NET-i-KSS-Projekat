@@ -67,7 +67,7 @@ public class PurchaseController : ControllerBase
 
         var purchases = _context.Purchases
             .Include(p => p.Vehicle)
-                .ThenInclude(v => v.Owner)   // 👈 BITNO
+                .ThenInclude(v => v.Owner)   
             .Include(p => p.Buyer)
             .Where(p => p.BuyerId == buyerId)
             .Select(p => new PurchaseReadDto
@@ -76,7 +76,7 @@ public class PurchaseController : ControllerBase
                 VehicleId = p.VehicleId,
                 VehicleName = p.Vehicle.Brand + " " + p.Vehicle.Model,
                 BuyerUsername = p.Buyer.Username,
-                OwnerUsername = p.Vehicle.Owner.Username, // 👈 DODATO
+                OwnerUsername = p.Vehicle.Owner.Username, 
                 CreatedAt = p.CreatedAt
             })
             .ToList();
