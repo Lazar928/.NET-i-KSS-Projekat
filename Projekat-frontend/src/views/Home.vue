@@ -182,7 +182,7 @@
   <textarea v-model="editingVehicle.description" placeholder="Opis"></textarea>
 
   <div class="actions">
-    <button @click="updateVehicle">Sačuvaj</button>
+    <button @click="updateVehicle" class="izmeni" >Sačuvaj</button>
     <button class="cancel" @click="editingVehicle = null">Otkaži</button>
   </div>
 </div>
