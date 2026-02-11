@@ -128,14 +128,14 @@
     <thead>
       <tr>
         <th>Vozilo</th>
-        <th>Prodavac</th> <!-- 👈 NOVO -->
+        <th>Prodavac</th> 
         <th>Datum</th>
       </tr>
     </thead>
     <tbody>
       <tr v-for="p in myPurchases" :key="p.id">
         <td>{{ p.vehicleName }}</td>
-        <td>{{ p.ownerUsername }}</td> <!-- 👈 OVDE -->
+        <td>{{ p.ownerUsername }}</td> 
         <td>{{ new Date(p.createdAt).toLocaleString() }}</td>
       </tr>
     </tbody>
@@ -172,7 +172,7 @@
 </section>
 
     <!-- EDIT VOZILA -->
-    <div v-if="editingVehicle" class="edit-card">
+<div v-if="editingVehicle" class="edit-card">
   <h3>Izmena vozila</h3>
 
   <input v-model="editingVehicle.brand" placeholder="Brend" />
@@ -276,13 +276,13 @@ const updateVehicle = async () => {
       vehicles.value[index] = { ...editingVehicle.value }
     }
     
-    toastRef.value.showToast('Vozilo uspešno izmenjeno ✅')
+    toastRef.value.showToast('Vozilo uspešno izmenjeno')
     
 
     editingVehicle.value = null
     await loadOwnerPurchases()
   } catch (err) {
-    toastRef.value.showToast('Greška pri izmeni ❌')
+    toastRef.value.showToast('Greška pri izmeni')
   }
 }
 
@@ -301,9 +301,9 @@ const deleteVehicle = async (id) => {
 
     await loadOwnerPurchases()
 
-    toastRef.value.showToast('Oglas je uspešno obrisan 🗑️')
+    toastRef.value.showToast('Oglas je uspešno obrisan')
   } catch (err) {
-    toastRef.value.showToast('Greška pri brisanju ❌')
+    toastRef.value.showToast('Greška pri brisanju')
   }
 }
 
@@ -320,9 +320,9 @@ const deleteVehicleAdmin = async (id) => {
     //  odmah ukloni iz UI
     vehicles.value = vehicles.value.filter(v => v.id !== id)
 
-    toastRef.value.show('Oglas je obrisan (ADMIN) 🛑', 'success')
+    toastRef.value.show('Oglas je obrisan (ADMIN) ', 'success')
   } catch (err) {
-    toastRef.value.show('Greška pri brisanju ❌', 'error')
+    toastRef.value.show('Greška pri brisanju ', 'error')
   }
 }
 
