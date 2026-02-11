@@ -33,6 +33,11 @@
 
       <button @click="register">Registracija</button>
 
+      <p v-if="error" class="error-message">
+        {{ error }}
+      </p>
+
+
       <p class="switch">
         Da li već imate nalog?
         <span @click="$router.push('/login')">Ulogujte se ovde</span>
@@ -54,10 +59,15 @@ const error = ref('')
 const router = useRouter()
 
 const register = async () => {
-  error.value = '' // reset greske ako je prethodno postojala, obrisace se
+  error.value = ''
 
-  if (!username.value || !email.value || !password.value || !role.value){
+  if (!username.value || !email.value || !password.value || !role.value) {
     error.value = 'Popunite sva polja'
+    return
+  }
+
+  if (!email.value.includes('@')) {
+    error.value = 'Email mora sadržati @'
     return
   }
 
@@ -66,13 +76,18 @@ const register = async () => {
       username: username.value,
       email: email.value,
       password: password.value,
-      role: role.value // User ili Owner
+      role: role.value
     })
 
     router.push('/login')
-  } catch (err) {
-    error.value = err.response?.data || 'Greška pri registraciji'
+    } catch (err) {
+      if (err.response?.data?.errors?.Email) {
+        error.value = err.response.data.errors.Email[0]
+    } else {
+        error.value = 'Greška pri registraciji'
+}
+
   }
 }
-</script>
 
+</script>
