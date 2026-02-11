@@ -13,7 +13,7 @@ namespace Projekat.Api.Controllers;
 [Authorize]
 public class PurchaseController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext _context; //veza sa bazom
 
     public PurchaseController(AppDbContext context)
     {
