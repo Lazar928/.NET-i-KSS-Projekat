@@ -8,10 +8,10 @@ import { useRouter } from 'vue-router'
 const email = ref('')
 const password = ref('')
 const error = ref('')
-const router = useRouter()
+const router = useRouter() // Omogucava programsku navigaciju (router.push('/home'))
 
 const login = async () => {
-  error.value = ''
+  error.value = '' // reset greske ako je prethodno postojala, obrisace se 
 
   try {
     const res = await api.post('/auth/login', {
